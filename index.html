@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Cuentas CapCut Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090c10;
+      --card-bg: #111622;
+      --card-border: #1e2638;
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-green: #25d366;
+      --text-main: #ffffff;
+      --text-muted: #8b9bb4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
+    body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding-bottom: 60px; overflow-x: hidden; }
+
+    /* Animaciones de aparición (Fade Up) */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-hero { animation: fadeUp 0.8s ease-out forwards; }
+    .animate-card-1 { animation: fadeUp 0.8s ease-out 0.2s forwards; opacity: 0; }
+    .animate-card-2 { animation: fadeUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+    .animate-card-3 { animation: fadeUp 0.8s ease-out 0.6s forwards; opacity: 0; }
+    .animate-box { animation: fadeUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+
+    /* Header Nav Superior */
+    header.nav-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(9, 12, 16, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 15px 40px; display: flex; justify-content: space-between; align-items: center;
+      animation: fadeUp 0.5s ease-out;
+    }
+    .logo { font-size: 1.4rem; font-weight: 900; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent-cyan); }
+    
+    nav.nav-links { display: flex; gap: 25px; }
+    nav.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.2s; }
+    nav.nav-links a:hover { color: #fff; }
+
+    .btn-contact-header {
+      background: var(--accent-cyan); color: #000; padding: 8px 18px; border-radius: 30px;
+      font-weight: 800; text-decoration: none; font-size: 0.88rem; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-contact-header:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+
+    /* Hero Section */
+    .hero { text-align: center; padding: 60px 20px 20px; }
+    .tag-economico { color: var(--accent-cyan); font-size: 0.85rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; display: block; }
+    .hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; }
+    .hero p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+
+    /* Pricing Section (3 Cards) */
+    .pricing-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 25px; max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+    
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 35px 25px; position: relative; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+    .card:hover { border-color: var(--accent-cyan); transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0, 242, 254, 0.1); }
+    
+    .card.popular { border: 2px solid var(--accent-cyan); box-shadow: 0 0 30px rgba(0, 242, 254, 0.15); }
+    .card-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent-cyan); color: #000; font-weight: 900; font-size: 0.75rem; padding: 4px 16px; border-radius: 20px; text-transform: uppercase; }
+
+    .plan-tag { color: var(--accent-cyan); font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
+    .card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 15px; }
+
+    .price-box { margin-bottom: 20px; }
+    .price-old { color: var(--text-muted); text-decoration: line-through; font-size: 0.85rem; }
+    .price-main { font-size: 2.5rem; font-weight: 900; color: #fff; line-height: 1.1; margin: 4px 0; }
+    .price-main span { font-size: 1rem; color: var(--accent-cyan); font-weight: 700; }
+    .price-sub { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; }
+
+    ul.specs { list-style: none; margin-bottom: 30px; }
+    ul.specs li { font-size: 0.95rem; color: #cbd5e1; padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.06); display: flex; align-items: center; gap: 10px; }
+    ul.specs li span { color: var(--accent-cyan); font-weight: bold; }
+
+    .btn-actions { display: flex; flex-direction: column; gap: 10px; }
+    
+    .btn-buy-main {
+      width: 100%; padding: 15px; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #000; font-weight: 800; font-size: 1rem; cursor: pointer; transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-buy-main:hover { opacity: 0.95; transform: scale(1.02); }
+
+    .btn-ws-direct {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      color: var(--accent-green); text-decoration: none; font-weight: 700; font-size: 0.9rem; padding: 8px; transition: opacity 0.2s;
+    }
+    .btn-ws-direct:hover { opacity: 0.8; }
+
+    /* Entrega & FAQ */
+    .section-box { max-width: 1100px; margin: 50px auto; background: var(--card-bg); border: 1px solid var(--card-border); padding: 35px; border-radius: 20px; }
+    .section-box h3 { color: var(--accent-cyan); margin-bottom: 15px; font-size: 1.4rem; }
+    .section-box p { color: var(--text-muted); margin-bottom: 10px; font-size: 0.98rem; }
+
+    .faq-item { border-bottom: 1px solid var(--card-border); padding: 15px 0; }
+    .faq-q { background: none; border: none; color: #fff; font-weight: 700; font-size: 1.05rem; width: 100%; text-align: left; cursor: pointer; display: flex; justify-content: space-between; }
+    .faq-a { color: var(--text-muted); font-size: 0.95rem; margin-top: 10px; display: none; }
+
+    /* Modal Pago */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+    .modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; width: 100%; max-width: 480px; padding: 30px; position: relative; animation: fadeUp 0.3s ease-out; }
+    .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+    .payment-option { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; }
+    .payment-option strong { color: #fff; display: block; }
+    .payment-option span { color: var(--accent-cyan); font-weight: 600; font-size: 0.9rem; }
+    .btn-ws-modal { display: block; width: 100%; text-align: center; padding: 15px; background: var(--accent-green); color: #fff; font-weight: 800; border-radius: 12px; text-decoration: none; margin-top: 20px; transition: transform 0.2s; }
+    .btn-ws-modal:hover { transform: scale(1.02); }
+
+    /* Float WS */
+    .float-ws { position: fixed; bottom: 25px; right: 25px; background: var(--accent-green); color: #fff; border-radius: 50px; padding: 14px 22px; text-decoration: none; font-weight: 800; box-shadow: 0 4px 20px rgba(37,211,102,0.4); z-index: 99; transition: transform 0.2s; }
+    .float-ws:hover { transform: scale(1.08); }
+    
+    @media (max-width: 768px) {
+      header.nav-header nav.nav-links { display: none; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Superior -->
+  <header class="nav-header">
+    <div class="logo">CAPCUT <span>PRO</span></div>
+    <nav class="nav-links">
+      <a href="#beneficios">Beneficios</a>
+      <a href="#planes">Planes y Precios</a>
+      <a href="#entrega">Entrega</a>
+      <a href="#faq">Preguntas Frecuentes</a>
+    </nav>
+    <a href="#" onclick="contactarWhatsApp('Consulta General')" class="btn-contact-header">💬 Contactar</a>
+  </header>
+
+  <!-- Hero Section con animación -->
+  <section class="hero animate-hero">
+    <span class="tag-economico">PRECIOS ECONÓMICOS</span>
+    <h1>Elige el plan ideal para ti</h1>
+    <p>Ahorra hasta un 70% en comparación con la suscripción directa en la tienda oficial.</p>
+  </section>
+
+  <!-- Tarjetas de Precios con aparición escalonada -->
+  <section class="pricing-container" id="planes">
+    
+    <!-- Plan 1 Mes -->
+    <div class="card animate-card-1">
+      <div>
+        <div class="plan-tag">Pase Temporal</div>
+        <h3>Plan 1 Mes</h3>
+        <div class="price-box">
+          <div class="price-old">Precio Oficial: $85.000 COP (~$20 USD)</div>
+          <div class="price-main">$24.900 <span>COP</span></div>
+          <div class="price-sub">≈ $6.00 USD / mes</div>
+        </div>
+        <ul class="specs">
+          <li><span>✓</span> Credenciales Directas (Correo + Contraseña)</li>
+          <li><span>✓</span> Acceso Pro Completo (30 días)</li>
+          <li><span>✓</span> Exportación en 4K 60FPS sin marca de agua</li>
+          <li><span>✓</span> Filtros, Efectos e IA VIP</li>
+          <li><span>✓</span> Garantía de 30 días</li>
+        </ul>
+      </div>
+      <div class="btn-actions">
+        <button class="btn-buy-main" onclick="abrirModal('Plan 1 Mes', '$24.900 COP / $6.00 USD')">Comprar Ahora</button>
+        <a href="#" onclick="contactarWhatsApp('Plan 1 Mes ($24.900 COP / $6 USD)')" class="btn-ws-direct">💬 Pedir por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Plan 6 Meses (Popular) -->
+    <div class="card popular animate-card-2">
+      <div class="card-badge">MÁS POPULAR ⭐</div>
+      <div>
+        <div class="plan-tag">Mayor Ahorro por Mes</div>
+        <h3>Plan 6 Meses</h3>
+        <div class="price-box">
+          <div class="price-old">Precio Oficial: $270.000 COP (~$65 USD)</div>
+          <div class="price-main">$94.900 <span>COP</span></div>
+          <div class="price-sub">≈ $23.00 USD (Solo $15.800 / mes)</div>
+        </div>
+        <ul class="specs">
+          <li><span>✓</span> Credenciales Directas (Correo + Contraseña)</li>
+          <li><span>✓</span> 180 Días de Licencia Pro Sin Interrupciones</li>
+          <li><span>✓</span> Herramientas de IA Ilimitadas</li>
+          <li><span>✓</span> Exportación en 4K 60FPS</li>
+          <li><span>✓</span> Uso en PC + Móvil</li>
+          <li><span>✓</span> Garantía Total por 6 Meses</li>
+        </ul>
+      </div>
+      <div class="btn-actions">
+        <button class="btn-buy-main" onclick="abrirModal('Plan 6 Meses', '$94.900 COP / $23.00 USD')">Obtener Plan 6 Meses</button>
+        <a href="#" onclick="contactarWhatsApp('Plan 6 Meses ($94.900 COP / $23 USD)')" class="btn-ws-direct">💬 Pedir por WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Plan 1 Año -->
+    <div class="card animate-card-3">
+      <div>
+        <div class="plan-tag">Para Creadores</div>
+        <h3>Plan 1 Año (Anual)</h3>
+        <div class="price-box">
+          <div class="price-old">Precio Oficial: $760.000 COP (~$180 USD)</div>
+          <div class="price-main">$259.900 <span>COP</span></div>
+          <div class="price-sub">≈ $62.00 USD / año</div>
+        </div>
+        <ul class="specs">
+          <li><span>✓</span> Credenciales Directas (Correo + Contraseña)</li>
+          <li><span>✓</span> 12 Meses de Acceso Pro Continuo</li>
+          <li><span>✓</span> Herramientas de IA y Efectos Ilimitados</li>
+          <li><span>✓</span> Exportación 4K 60FPS</li>
+          <li><span>✓</span> Garantía Completa de 12 Meses</li>
+          <li><span>✓</span> Soporte Prioritario WhatsApp</li>
+        </ul>
+      </div>
+      <div class="btn-actions">
+        <button class="btn-buy-main" onclick="abrirModal('Plan 1 Año', '$259.900 COP / $62.00 USD')">Comprar Ahora</button>
+        <a href="#" onclick="contactarWhatsApp('Plan 1 Año ($259.900 COP / $62 USD)')" class="btn-ws-direct">💬 Pedir por WhatsApp</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Proceso de Entrega -->
+  <section class="section-box animate-box" id="entrega">
+    <h3>📦 ¿Cómo se realiza la entrega de tu cuenta?</h3>
+    <p>1. Seleccionas el plan deseado y realizas el pago por tu método preferido (Nequi, Daviplata, Bancolombia, Binance o PayPal).</p>
+    <p>2. Envías el comprobante haciendo clic en el botón de WhatsApp.</p>
+    <p>3. Recibirás tu <strong>Correo y Contraseña de acceso directo</strong> en un lapso de 5 a 15 minutos.</p>
+    <p>4. Inicias sesión en tu app de CapCut (PC, Mac, iPhone o Android) y disfrutas de todas las funciones Pro de inmediato.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-box animate-box" id="faq">
+    <h3 style="text-align: center; margin-bottom: 25px;">Preguntas Frecuentes</h3>
+    
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Qué datos me entregan para ingresar? <span>+</span></button>
+      <div class="faq-a">Te enviamos el Correo Electrónico y la Contraseña de acceso directo asignados a tu cuenta CapCut Pro.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Es compatible con CapCut para PC y Celular? <span>+</span></button>
+      <div class="faq-a">Sí, funciona perfectamente en CapCut para Windows, Mac, Android e iOS. Recomendamos usar la cuenta en 1 dispositivo a la vez.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">¿Cómo funciona la garantía? <span>+</span></button>
+      <div class="faq-a">Cuentas con respaldo y soporte técnico activo durante toda la duración contratada (1, 6 o 12 meses). Si la cuenta presenta cualquier falla, te la solucionamos o reemplazamos inmediatamente.</div>
+    </div>
+  </section>
+
+  <!-- Modal Métodos de Pago -->
+  <div class="modal-overlay" id="modalPago">
+    <div class="modal-box">
+      <button class="modal-close" onclick="cerrarModal()">&times;</button>
+      <h3 id="modalTitulo" style="color:var(--accent-cyan); margin-bottom: 10px;">Comprar Plan</h3>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">Realiza tu transferencia a cualquiera de estas cuentas y confirma tu compra por WhatsApp:</p>
+
+      <div class="payment-option">
+        <strong>Nequi / Daviplata (Colombia)</strong>
+        <span>300 000 0000</span>
+      </div>
+
+      <div class="payment-option">
+        <strong>Bancolombia (Ahorros)</strong>
+        <span>000-000000-00</span>
+      </div>
+
+      <div class="payment-option">
+        <strong>Binance Pay / PayPal (Internacional)</strong>
+        <span>Solicitar datos vía WhatsApp</span>
+      </div>
+
+      <a href="#" id="btnWsModal" target="_blank" class="btn-ws-modal">📲 Enviar Comprobante por WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Botón Flotante WhatsApp -->
+  <a href="#" onclick="contactarWhatsApp('Dudas Generales')" class="float-ws">💬 ¿Dudas? Escríbenos</a>
+
+  <script>
+    // Tu número de WhatsApp real integrado
+    const NUMERO_WHATSAPP = "573158722451";
+
+    function contactarWhatsApp(planInfo) {
+      const msj = encodeURIComponent(`Hola, quisiera más información sobre las cuentas CapCut Pro (${planInfo}).`);
+      window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${msj}`, '_blank');
+    }
+
+    function abrirModal(plan, precio) {
+      document.getElementById('modalTitulo').innerText = `Comprar ${plan} (${precio})`;
+      const msj = encodeURIComponent(`Hola! Acabo de hacer la transferencia para el ${plan} de CapCut Pro (${precio}). Adjunto mi comprobante para recibir mi correo y contraseña.`);
+      document.getElementById('btnWsModal').href = `https://wa.me/${NUMERO_WHATSAPP}?text=${msj}`;
+      document.getElementById('modalPago').style.display = 'flex';
+    }
+
+    function cerrarModal() {
+      document.getElementById('modalPago').style.display = 'none';
+    }
+
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.style.display === 'block';
+      document.querySelectorAll('.faq-a').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.faq-q span').forEach(el => el.innerText = '+');
+      if (!isOpen) {
+        answer.style.display = 'block';
+        btn.querySelector('span').innerText = '-';
+      }
+    }
+  </script>
+</body>
+</html>
